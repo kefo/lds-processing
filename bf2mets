@@ -23,7 +23,7 @@ class Convert(threading.Thread):
     def run(self):
         print("Processing job: " + str(self.n) + "; " + self.j["infile"] + "; " + self.j["outfile"])
         
-        cmd = self.jobconfig["command"]
+        cmd = self.config["command"]
         cmd = cmd.replace('%INFILE%', self.j["infile"])
         cmd = cmd.replace('%OUTFILE%', self.j["outfile"])
         # print(cmd)
@@ -101,7 +101,7 @@ st = datetime.datetime.now()
 starttime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
 threadPool = threading.BoundedSemaphore(jobconfig["threads"])
-handler=ThreadHandler(config, jobs)
+handler=ThreadHandler(jobconfig, jobs)
 handler.start()
 handler.join()
 
